@@ -1,0 +1,130 @@
+name: Godot Export
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - "README.md"
+      - ".gitattributes"
+      - ".gitignore"
+
+permissions:
+  contents: write
+
+env:
+  GODOT_VERSION: 4.3
+
+jobs:
+  build-wasm:
+    name: Build WASM
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - uses: cachix/install-nix-action@v27
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+      - name: Build Rust
+        run: |
+          cd ./rust/godot-neural-networks
+          nix develop --command cargo build # we need the debug build for WASM
+          nix develop --command cargo build --release
+          nix develop --command cargo build -Zbuild-std=std,panic_abort --target wasm32-unknown-emscripten --release
+      - name: Move artifacts
+        run: |
+          mkdir -v -p ./extern/{release,debug}
+          cp ./rust/godot-neural-networks/target/wasm32-unknown-emscripten/release/godot_neural_networks.wasm ./extern/release
+          cp ./rust/godot-neural-networks/target/release/libgodot_neural_networks.so ./extern/release
+          cp ./rust/godot-neural-networks/target/debug/libgodot_neural_networks.so ./extern/debug
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: godot-neural-networks-wasm
+          path: ./extern
+  export-web:
+    name: Web Export
+    runs-on: ubuntu-20.04
+    needs:
+      - build-wasm
+    container:
+      image: barichello/godot-ci:4.3
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Make dir
+        run: mkdir -v -p ./game/extern
+      - name: Download artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: godot-neural-networks-wasm
+          path: ./game/extern
+      - name: Setup Godot Template
+        run: |
+          mkdir -v -p ~/.local/share/godot/export_templates
+          mkdir -v -p ~/.config/
+          mv /root/.config/godot ~/.config/godot
+          mv /root/.local/share/godot/export_templates/${GODOT_VERSION}.stable ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
+          ls -lah
+      - name: Web Build
+        run: |
+          cd ./game
+          mkdir -v -p build/web
+          godot --headless --verbose --export-release "Web" build/web/index.html
+          ls -lah build/web
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: godot-web
+          path: ./game/build/web
+      - name: Netlify headers
+        run: |
+          cd ./game
+          cat <<EOF > build/web/_headers
+          /*
+            Cross-Origin-Opener-Policy: same-origin
+            Cross-Origin-Embedder-Policy: require-corp
+            Access-Control-Allow-Origin: *
+          EOF
+          cat build/web/_headers
+      - name: Deploy artifacts to `artifacts` branch
+        uses: s0/git-publish-subdir-action@develop
+        env:
+          REPO: self
+          BRANCH: gh-pages
+          FOLDER: ./game/build/web
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  export-linux:
+    name: Linux Export
+    runs-on: ubuntu-20.04
+    needs:
+      - build-wasm
+    container:
+      image: barichello/godot-ci:4.3
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Make dir
+        run: mkdir -v -p ./game/extern
+      - name: Download artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: godot-neural-networks-wasm
+          path: ./game/extern
+      - name: Setup Godot Template
+        run: |
+          mkdir -v -p ~/.local/share/godot/export_templates
+          mkdir -v -p ~/.config/
+          mv /root/.config/godot ~/.config/godot
+          mv /root/.local/share/godot/export_templates/${GODOT_VERSION}.stable ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
+          ls -lah
+      - name: Linux Build
+        run: |
+          cd ./game
+          mkdir -v -p build/linux
+          godot --headless --verbose --export-release "Linux" build/linux/flappy-ai.x86_64
+          ls -lah build/linux
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: godot-linux
+          path: ./game/build/linux

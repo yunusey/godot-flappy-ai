@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://l2p2330pmw5x"]
+
+[ext_resource type="Texture2D" uid="uid://c447s5ooa3wcv" path="res://Assets/Game Objects/base.png" id="1_kakui"]
+[ext_resource type="Script" path="res://Ground/Ground.gd" id="1_y1ado"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0nkv6"]
+size = Vector2(336, 112)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ntqip"]
+size = Vector2(336, 112)
+
+[node name="Ground" type="Area2D"]
+script = ExtResource("1_y1ado")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_kakui")
+centered = false
+offset = Vector2(0, 400)
+
+[node name="BottomGround" type="CollisionShape2D" parent="."]
+position = Vector2(168, 456)
+shape = SubResource("RectangleShape2D_0nkv6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(168, -56)
+shape = SubResource("RectangleShape2D_ntqip")

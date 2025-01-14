@@ -1,0 +1,86 @@
+[gd_scene load_steps=16 format=3 uid="uid://w1hdvqsrxumu"]
+
+[ext_resource type="Script" path="res://Main.gd" id="1_yluuq"]
+[ext_resource type="PackedScene" uid="uid://i1bwdh652uig" path="res://Background/Background.tscn" id="2_rbw2d"]
+[ext_resource type="PackedScene" uid="uid://l2p2330pmw5x" path="res://Ground/Ground.tscn" id="3_ajp3j"]
+[ext_resource type="FontFile" uid="uid://bnqtm8oec6m81" path="res://Assets/UI/OrigamiMommyFont.ttf" id="4_8s8ya"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_h5xya"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yhbvl"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ojt37"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7egto"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wv3e4"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_68q5r"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_313jc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4q0nd"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gaqkx"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2m7c4"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ma1tq"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_yluuq")
+stop_at = 0
+
+[node name="Background" parent="." instance=ExtResource("2_rbw2d")]
+
+[node name="PipeContainer" type="Node2D" parent="."]
+
+[node name="Ground" parent="." instance=ExtResource("3_ajp3j")]
+
+[node name="PlayerContainer" type="Node2D" parent="."]
+
+[node name="ScoreLabel" type="Label" parent="."]
+offset_top = 458.0
+offset_right = 288.0
+offset_bottom = 531.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_8s8ya")
+theme_override_font_sizes/font_size = 64
+text = "1234"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GenButton" type="Button" parent="."]
+offset_top = 411.0
+offset_right = 288.0
+offset_bottom = 476.0
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0.999752, 0.174881, 0.127808, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_normal_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_disabled_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_8s8ya")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/focus = SubResource("StyleBoxEmpty_h5xya")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_yhbvl")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_ojt37")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_7egto")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_wv3e4")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_68q5r")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_313jc")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_4q0nd")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_gaqkx")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_2m7c4")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ma1tq")
+text = "Gen #1234"
+
+[connection signal="body_entered" from="Ground" to="." method="_on_ground_body_entered"]
+[connection signal="pressed" from="GenButton" to="." method="_on_gen_button_pressed"]

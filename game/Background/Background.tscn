@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://i1bwdh652uig"]
+
+[ext_resource type="Texture2D" uid="uid://qo5ucgkaa6u2" path="res://Assets/Game Objects/background-day.png" id="1_a6467"]
+[ext_resource type="Script" path="res://Background/Background.gd" id="1_gwqcd"]
+
+[node name="Background" type="ParallaxBackground"]
+scroll_offset = Vector2(-288, 0)
+script = ExtResource("1_gwqcd")
+
+[node name="BackgroundLayer" type="ParallaxLayer" parent="."]
+motion_mirroring = Vector2(288, 0)
+
+[node name="TextureRect" type="TextureRect" parent="BackgroundLayer"]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_a6467")

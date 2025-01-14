@@ -1,0 +1,10 @@
+[toolchain]
+channel = "nightly"
+components = [
+	"rustc-codegen-cranelift",
+	"rust-src",
+	"cargo",
+	"rustc",
+	"rust-analyzer",
+]
+targets = ["wasm32-unknown-emscripten"]

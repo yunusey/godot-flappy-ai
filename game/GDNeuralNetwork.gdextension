@@ -1,0 +1,26 @@
+[configuration]
+entry_symbol = "gdext_rust_init"
+compatibility_minimum = 4.1
+reloadable = true
+
+[libraries]
+# For debugging!
+# linux.debug.x86_64 =     "res://../rust/godot-neural-networks/target/debug/libgodot_neural_networks.so"
+# linux.release.x86_64 =   "res://../rust/godot-neural-networks/target/release/libgodot_neural_networks.so"
+# windows.debug.x86_64 =   "res://../rust/godot-neural-networks/target/debug/godot_neural_networks.dll"
+# windows.release.x86_64 = "res://../rust/godot-neural-networks/target/release/godot_neural_networks.dll"
+# macos.debug =            "res://../rust/godot-neural-networks/target/debug/libgodot_neural_networks.dylib"
+# macos.release =          "res://../rust/godot-neural-networks/target/release/libgodot_neural_networks.dylib"
+# macos.debug.arm64 =      "res://../rust/godot-neural-networks/target/debug/libgodot_neural_networks.dylib"
+# macos.release.arm64 =    "res://../rust/godot-neural-networks/release/libgodot_neural_networks.dylib"
+
+linux.debug.x86_64 =     "res://extern/debug/libgodot_neural_networks.so"
+linux.release.x86_64 =   "res://extern/release/libgodot_neural_networks.so"
+windows.debug.x86_64 =   "res://extern/debug/godot_neural_networks.dll"
+windows.release.x86_64 = "res://extern/release/godot_neural_networks.dll"
+macos.debug =            "res://extern/debug/libgodot_neural_networks.dylib"
+macos.release =          "res://extern/release/libgodot_neural_networks.dylib"
+macos.debug.arm64 =      "res://extern/debug/libgodot_neural_networks.dylib"
+macos.release.arm64 =    "res://extern/release/libgodot_neural_networks.dylib"
+web.debug.wasm32 =       "res://extern/debug/godot_neural_networks.wasm"
+web.release.wasm32 =     "res://extern/release/godot_neural_networks.wasm"
