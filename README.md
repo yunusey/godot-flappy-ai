@@ -1,20 +1,23 @@
-<center>
-
-<img src="./game/logo.png" alt="godot-flappy-ai-logo" height="200">
-
-<h1>godot-flappy-ai</h1>
-
-<i>AI learns to play Flappy Bird using Genetic Algorithms.</i>
-</center>
+<h1>
+<p align="center">
+  <img src="./game/logo.png" alt="godot-flappy-ai-logo" width="128">
+  <br>godot-flappy-ai
+</h1>
+  <p align="center">
+    AI learns to play Flappy Bird using Genetic Algorithms
+    <br /><br>
+    <img src="https://api.netlify.com/api/v1/badges/864ca396-faed-4688-b683-214be43b7755/deploy-status" />
+    <br />
+  </p>
+</p>
 
 ## Showcase
 You can test it in your browser [here](https://godot-flappy-ai.netlify.app/). Note that there is a problem with how the font is exported, I guess. It shouldn't be a big deal, though.
 
-<center>
+<div align="center">
+  <video src="https://github.com/user-attachments/assets/e66dd142-c4c4-4d35-bdff-870129445c6d" />
+</div>
 
-https://github.com/user-attachments/assets/e66dd142-c4c4-4d35-bdff-870129445c6d
-
-</center>
 
 ## Background
 Almost 6 months ago, I got interested in genetic algorithms and the simulations people were making using them. I wanted to try it out in Flappy Bird, which was done by many people before :) At the time, I had used C++ directly and the official [godot-cpp](https://github.com/godotengine/godot-cpp/) bindings, and I hadn't touched it after that until now.
