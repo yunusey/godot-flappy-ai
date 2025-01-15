@@ -29,6 +29,9 @@
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_yluuq")
+survival_percentage = 0.2
+mutation_probability = 0.5
+exploration_rate = 0.8
 stop_at = 0
 
 [node name="Background" parent="." instance=ExtResource("2_rbw2d")]
